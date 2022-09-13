@@ -105,7 +105,10 @@ class KalmanFilter:
         self.df_z = pd.DataFrame(np.vstack(self.z), index=self.t, columns=labels[1])
         self.df_xhat_apri = pd.DataFrame(np.vstack(self.xhat_apri), index=self.t, columns=labels[2])
 
-        self.df = self.df_x.append([self.df_z, self.df_xhat_apri], sort=False)
+        # self.df = self.df_x.append([self.df_z, self.df_xhat_apri], sort=False)
+        # FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version.
+        # Use pandas.concat instead.
+        self.df = pd.concat([self.df_x, self.df_z, self.df_xhat_apri], sort=False)
 
         return self.df
 
@@ -219,18 +222,10 @@ def plot_results(df1, df2, df3):
 
 def data_frame_transform(df):
     df_x = df[['x1', 'x1_dot', 'x2', 'x2_dot']].dropna()
-    # print(df1_x)
-
     df_z = df[['z1', 'z2']].dropna()
-    # print(df1_z)
-
     df_xhat = df[['xhat1', 'xhat1_dot', 'xhat2', 'xhat2_dot']].dropna()
-    # print(df1_xhat)
-
     df_x_z = df_x.join(df_z, rsuffix='_right')
     df_x_z_xhat = df_x_z.join(df_xhat, rsuffix='_right')
-    # print(df_x_z_xhat)
-    # df_x_z_xhat.to_csv(r'D:\test1.csv')
     return df_x_z_xhat
 
 ######################################################################################################################
@@ -251,6 +246,20 @@ def secondary_plot_results(df, title_suffix):
     plt.title('Y position difference ' + title_suffix)
     plt.show()
 
+    # X velocity
+    plt.plot(df.index, df['xhat1_dot'] - df['x1_dot'])
+    plt.ylabel('velocity')
+    plt.xlabel('time')
+    plt.title('X velocity difference ' + title_suffix)
+    plt.show()
+
+    # Y velocity
+    plt.plot(df.index, df['xhat2_dot'] - df['x2_dot'])
+    plt.ylabel('velocity')
+    plt.xlabel('time')
+    plt.title('Y velocity difference ' + title_suffix)
+    plt.show()
+
 ######################################################################################################################
 
 
@@ -261,16 +270,13 @@ if __name__ == "__main__":
     delT = 0.008  # timestep
     t_max = 2  # time simulation stops (seconds)
     t = np.arange(0, t_max, delT)
-
-    g = 242  # m/s^2: gravity
+    g = 242  # m/s^2
     mass = 22  # kg
 
     # initial conditions
     x0 = np.zeros(4)
-
     init_angle = 45
     init_angle_radians = np.radians(init_angle)
-
     init_velocity = 47
 
     x0[0] = 0
@@ -324,16 +330,13 @@ if __name__ == "__main__":
     delT = 0.008  # timestep
     t_max = 2  # time simulation stops (seconds)
     t = np.arange(0, t_max, delT)
-    # начальное ускорение
-    g = 450  # m/s^2: gravity
+    g = 450  # m/s^2
     mass = 22  # kg
 
     # initial conditions
     x0 = np.zeros(4)
-
     init_angle = 45
     init_angle_radians = np.radians(init_angle)
-    # начальная скорость
     init_velocity = 49
 
     x0[0] = 0
@@ -385,16 +388,13 @@ if __name__ == "__main__":
     delT = 0.008  # timestep
     t_max = 2  # time simulation stops (seconds)
     t = np.arange(0, t_max, delT)
-    # начальное ускорение
-    g = 331  # m/s^2: gravity
+    g = 331  # m/s^2
     mass = 22  # kg
 
     # initial conditions
     x0 = np.zeros(4)
-
     init_angle = 45
     init_angle_radians = np.radians(init_angle)
-    # начальная скорость
     init_velocity = 42
 
     x0[0] = 0
@@ -442,7 +442,10 @@ if __name__ == "__main__":
     ##################################################################################################################
 
     plot_results(df1, df2, df3)
-    # TODO: нужны графики: разница по X трех ракет, разница по Y, разница по скорости X, разница по скорости Y = 12
-    #  графиков
+
     df1 = data_frame_transform(df1)
     secondary_plot_results(df1, "(1st missile)")
+    df2 = data_frame_transform(df2)
+    secondary_plot_results(df2, "(2nd missile)")
+    df3 = data_frame_transform(df3)
+    secondary_plot_results(df3, "(3rd missile)")
