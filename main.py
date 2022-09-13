@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Example of Kalman filter used for online estimation of ballistic missile
 # trajectory.
 
@@ -7,7 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-class Kalman_Filter:
+class KalmanFilter:
 
     def __init__(self, A, B, M, H, Q, R):
         self.A = A
@@ -142,6 +141,29 @@ def setup_missile_dynamics(delT):
     return A, B, H
 
 
+def data_frame_transform(df):
+    df_x = df[['x1', 'x1_dot']].dropna()
+    # print(df1_x)
+
+    df_z = df[['z1', 'z2']].dropna()
+    # print(df1_z)
+
+    df_xhat = df[['xhat1', 'xhat1_dot', 'xhat2', 'xhat2_dot']].dropna()
+    # print(df1_xhat)
+
+    df_x_z = df_x.join(df_z, rsuffix='_right')
+    df_x_z_xhat = df_x_z.join(df_xhat, rsuffix='_right')
+    # print(df1_x_z_xhat)
+    # df1_x_z_xhat.to_csv(r'D:\test1.csv')
+
+    plt.plot(df_x_z_xhat['xhat1'] - df_x_z_xhat['x1'], label="x 1st missile")
+    plt.legend()
+    plt.ylabel('position')
+    plt.xlabel('time')
+    plt.title('X position difference')
+    plt.show()
+
+
 def plot_results(df1, df2, df3):
     # X position
     # 1st missile
@@ -264,7 +286,7 @@ if __name__ == "__main__":
     u = np.hstack((np.zeros((len(t), 1)), np.ones((len(t), 1)) * g * mass))
 
     # setup Kalman Filter
-    kalman = Kalman_Filter(A, B, B, H, Q, R)
+    kalman = KalmanFilter(A, B, B, H, Q, R)
 
     # dataframe column labels
     state_labels = ['x1', 'x1_dot', 'x2', 'x2_dot']
@@ -327,7 +349,7 @@ if __name__ == "__main__":
     u = np.hstack((np.zeros((len(t), 1)), np.ones((len(t), 1)) * g * mass))
 
     # setup Kalman Filter
-    kalman = Kalman_Filter(A, B, B, H, Q, R)
+    kalman = KalmanFilter(A, B, B, H, Q, R)
 
     # dataframe column labels
     state_labels = ['x1', 'x1_dot', 'x2', 'x2_dot']
@@ -390,7 +412,7 @@ if __name__ == "__main__":
     u = np.hstack((np.zeros((len(t), 1)), np.ones((len(t), 1)) * g * mass))
 
     # setup Kalman Filter
-    kalman = Kalman_Filter(A, B, B, H, Q, R)
+    kalman = KalmanFilter(A, B, B, H, Q, R)
 
     # dataframe column labels
     state_labels = ['x1', 'x1_dot', 'x2', 'x2_dot']
@@ -405,27 +427,5 @@ if __name__ == "__main__":
 
     ############################################################################################
 
-    df1_x = df1[['x1', 'x1_dot']].dropna()
-    # print(df1_x)
-
-    df1_z = df1[['z1', 'z2']].dropna()
-    # print(df1_z)
-
-    df1_xhat = df1[['xhat1', 'xhat1_dot', 'xhat2', 'xhat2_dot']].dropna()
-    # print(df1_xhat)
-
-    df1_x_z = df1_x.join(df1_z, rsuffix='_right')
-    df1_x_z_xhat = df1_x_z.join(df1_xhat, rsuffix='_right')
-    # print(df1_x_z_xhat)
-    # df1_x_z_xhat.to_csv(r'D:\test1.csv')
-
-    ###############################################################################################
-
-    plt.plot(df1_x_z_xhat['xhat1'] - df1_x_z_xhat['x1'], label="x 1st missile")
-    plt.legend()
-    plt.ylabel('position')
-    plt.xlabel('time')
-    plt.title('X position')
-    plt.show()
-
     plot_results(df1, df2, df3)
+    data_frame_transform(df1)
