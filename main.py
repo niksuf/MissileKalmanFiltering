@@ -1,5 +1,4 @@
-# Example of Kalman filter used for online estimation of ballistic missile
-# trajectory.
+# Example of Kalman filter used for estimation of ballistic missile trajectory
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -110,7 +109,7 @@ class KalmanFilter:
 
         return self.df
 
-##############################################################################
+######################################################################################################################
 
 
 def setup_missile_dynamics(delT):
@@ -140,28 +139,7 @@ def setup_missile_dynamics(delT):
 
     return A, B, H
 
-
-def data_frame_transform(df):
-    df_x = df[['x1', 'x1_dot']].dropna()
-    # print(df1_x)
-
-    df_z = df[['z1', 'z2']].dropna()
-    # print(df1_z)
-
-    df_xhat = df[['xhat1', 'xhat1_dot', 'xhat2', 'xhat2_dot']].dropna()
-    # print(df1_xhat)
-
-    df_x_z = df_x.join(df_z, rsuffix='_right')
-    df_x_z_xhat = df_x_z.join(df_xhat, rsuffix='_right')
-    # print(df1_x_z_xhat)
-    # df1_x_z_xhat.to_csv(r'D:\test1.csv')
-
-    plt.plot(df_x_z_xhat['xhat1'] - df_x_z_xhat['x1'], label="x 1st missile")
-    plt.legend()
-    plt.ylabel('position')
-    plt.xlabel('time')
-    plt.title('X position difference')
-    plt.show()
+######################################################################################################################
 
 
 def plot_results(df1, df2, df3):
@@ -236,7 +214,45 @@ def plot_results(df1, df2, df3):
     plt.show()
 
 
-##############################################################################
+######################################################################################################################
+
+
+def data_frame_transform(df):
+    df_x = df[['x1', 'x1_dot', 'x2', 'x2_dot']].dropna()
+    # print(df1_x)
+
+    df_z = df[['z1', 'z2']].dropna()
+    # print(df1_z)
+
+    df_xhat = df[['xhat1', 'xhat1_dot', 'xhat2', 'xhat2_dot']].dropna()
+    # print(df1_xhat)
+
+    df_x_z = df_x.join(df_z, rsuffix='_right')
+    df_x_z_xhat = df_x_z.join(df_xhat, rsuffix='_right')
+    # print(df_x_z_xhat)
+    # df_x_z_xhat.to_csv(r'D:\test1.csv')
+    return df_x_z_xhat
+
+######################################################################################################################
+
+
+def secondary_plot_results(df, title_suffix):
+    # X position difference
+    plt.plot(df['xhat1'] - df['x1'])
+    plt.ylabel('position')
+    plt.xlabel('time')
+    plt.title('X position difference ' + title_suffix)
+    plt.show()
+
+    # Y position difference
+    plt.plot(df['xhat2'] - df['x2'])
+    plt.ylabel('position')
+    plt.xlabel('time')
+    plt.title('Y position difference ' + title_suffix)
+    plt.show()
+
+######################################################################################################################
+
 
 if __name__ == "__main__":
     print("Simulation 1 Started")
@@ -299,7 +315,7 @@ if __name__ == "__main__":
 
     print("Simulation 1 Complete")
 
-    ###########################################################################
+    ##################################################################################################################
 
     # 2nd missile
     print("Simulation 2 Started")
@@ -360,9 +376,7 @@ if __name__ == "__main__":
     # run the simulation
     df2 = kalman.simulate(delT, t_max, x0, u, w, v, labels)
 
-    # plot_results(df1, df2)
-
-    ###########################################################################################
+    ##################################################################################################################
 
     # 3rd missile
     print("Simulation 3 Started")
@@ -425,7 +439,10 @@ if __name__ == "__main__":
 
     print("Simulation 3 Complete")
 
-    ############################################################################################
+    ##################################################################################################################
 
     plot_results(df1, df2, df3)
-    data_frame_transform(df1)
+    # TODO: нужны графики: разница по X трех ракет, разница по Y, разница по скорости X, разница по скорости Y = 12
+    #  графиков
+    df1 = data_frame_transform(df1)
+    secondary_plot_results(df1, "(1st missile)")
