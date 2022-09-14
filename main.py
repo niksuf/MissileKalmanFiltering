@@ -148,72 +148,84 @@ def setup_missile_dynamics(delT):
 def plot_results(df1, df2, df3):
     # X position
     # 1st missile
-    plt.plot(df1.index, df1['x1'] / 20, label="x 1st missile")
-    plt.plot(df1.index, df1['z1'] / 20, label="z1 1st missile")
-    plt.plot(df1.index, df1['xhat1'] / 20, label="x hat 1st missile")
+    plt.plot(df1.index, df1['x1'] / 20, label="x Первая цель")
+    plt.plot(df1.index, df1['z1'] / 20, label="z1 Первая цель")
+    plt.plot(df1.index, df1['xhat1'] / 20, label="x hat Первая цель")
     # 2nd missile
-    plt.plot(df2.index, df2['x1'] / 20, label="x 2nd missile")
-    plt.plot(df2.index, df2['z1'] / 20, label="z1 2nd missile")
-    plt.plot(df2.index, df2['xhat1'] / 20, label="x hat 2nd missile")
+    plt.plot(df2.index, df2['x1'] / 20, label="x Вторая цель")
+    plt.plot(df2.index, df2['z1'] / 20, label="z1 Вторая цель")
+    plt.plot(df2.index, df2['xhat1'] / 20, label="x hat Вторая цель")
     # 3rd missile
-    plt.plot(df3.index, df3['x1'] / 20, label="x 3rd missile")
-    plt.plot(df3.index, df3['z1'] / 20, label="z1 3rd missile")
-    plt.plot(df3.index, df3['xhat1'] / 20, label="x hat 3rd missile")
+    plt.plot(df3.index, df3['x1'] / 20, label="x Третья цель")
+    plt.plot(df3.index, df3['z1'] / 20, label="z1 Третья цель")
+    plt.plot(df3.index, df3['xhat1'] / 20, label="x hat Третья цель")
     plt.legend()
-    plt.ylabel('position')
-    plt.xlabel('time')
-    plt.title('X position')
+    plt.ylabel('Дальность')
+    plt.xlabel('Время')
+    plt.title('Дальность по X')
+    # plt.ylabel('position')
+    # plt.xlabel('time')
+    # plt.title('X position')
     plt.show()
 
     # Y Position
     # 1st missile
-    plt.plot(df1.index, df1['x2'] / 20, label="y 1st missile")
-    plt.plot(df1.index, df1['z2'] / 20, label="z2 1st missile")
-    plt.plot(df1.index, df1['xhat2'] / 20, label="y hat 1st missile")
+    plt.plot(df1.index, df1['x2'] / 20, label="y Первая цель")
+    plt.plot(df1.index, df1['z2'] / 20, label="z2 Первая цель")
+    plt.plot(df1.index, df1['xhat2'] / 20, label="y hat Первая цель")
     # 2nd missile
-    plt.plot(df2.index, df2['x2'] / 20, label="y 2nd missile")
-    plt.plot(df2.index, df2['z2'] / 20, label="z2 2nd missile")
-    plt.plot(df2.index, df2['xhat2'] / 20, label="y hat 2nd missile")
+    plt.plot(df2.index, df2['x2'] / 20, label="y Вторая цель")
+    plt.plot(df2.index, df2['z2'] / 20, label="z2 Вторая цель")
+    plt.plot(df2.index, df2['xhat2'] / 20, label="y hat Вторая цель")
     # 3rd missile
-    plt.plot(df3.index, df3['x2'] / 20, label="y 3rd missile")
-    plt.plot(df3.index, df3['z2'] / 20, label="z2 3rd missile")
-    plt.plot(df3.index, df3['xhat2'] / 20, label="y hat 3rd missile")
+    plt.plot(df3.index, df3['x2'] / 20, label="y Третья цель")
+    plt.plot(df3.index, df3['z2'] / 20, label="z2 Третья цель")
+    plt.plot(df3.index, df3['xhat2'] / 20, label="y hat Третья цель")
     plt.legend()
-    plt.ylabel('position')
-    plt.xlabel('time')
-    plt.title('Y position')
+    plt.ylabel('Дальность')
+    plt.xlabel('Время')
+    plt.title('Дальность по Y')
+    # plt.ylabel('position')
+    # plt.xlabel('time')
+    # plt.title('Y position')
     plt.show()
 
     # X velocity
     # 1st missile
-    plt.plot(df1.index, df1['x1_dot'] / 20, label="x1_dot 1st missile")
-    plt.plot(df1.index, df1['xhat1_dot'] / 20, label="xhat1_dot 1st missile")
+    plt.plot(df1.index, df1['x1_dot'], label="x1_dot Первая цель")
+    plt.plot(df1.index, df1['xhat1_dot'], label="xhat1_dot Первая цель")
     # 2nd missile
-    plt.plot(df2.index, df2['x1_dot'] / 20, label="x1_dot 2nd missile")
-    plt.plot(df2.index, df2['xhat1_dot'] / 20, label="xhat1_dot 2nd missile")
+    plt.plot(df2.index, df2['x1_dot'], label="x1_dot Вторая цель")
+    plt.plot(df2.index, df2['xhat1_dot'], label="xhat1_dot Вторая цель")
     # 3rd missile
-    plt.plot(df3.index, df3['x1_dot'] / 20, label="x1_dot 3rd missile")
-    plt.plot(df3.index, df3['xhat1_dot'] / 20, label="xhat1_dot 3rd missile")
+    plt.plot(df3.index, df3['x1_dot'], label="x1_dot Третья цель")
+    plt.plot(df3.index, df3['xhat1_dot'], label="xhat1_dot Третья цель")
     plt.legend()
-    plt.ylabel('speed')
-    plt.xlabel('time')
-    plt.title('X velocity')
+    plt.ylabel('Скорость')
+    plt.xlabel('Время')
+    plt.title('Скорость по X')
+    # plt.ylabel('speed')
+    # plt.xlabel('time')
+    # plt.title('X velocity')
     plt.show()
 
     # Y velocity
     # 1st missile
-    plt.plot(df1.index, df1['x2_dot'] / 20, label="x2_dot 1st missile")
-    plt.plot(df1.index, df1['xhat2_dot'] / 20, label="xhat2_dot 1st missile")
+    plt.plot(df1.index, df1['x2_dot'], label="x2_dot Первая цель")
+    plt.plot(df1.index, df1['xhat2_dot'], label="xhat2_dot Первая цель")
     # 2nd missile
-    plt.plot(df2.index, df2['x2_dot'] / 20, label="x2_dot 2nd missile")
-    plt.plot(df2.index, df2['xhat2_dot'] / 20, label="xhat2_dot 2nd missile")
+    plt.plot(df2.index, df2['x2_dot'], label="x2_dot Вторая цель")
+    plt.plot(df2.index, df2['xhat2_dot'], label="xhat2_dot Вторая цель")
     # 3rd missile
-    plt.plot(df3.index, df3['x2_dot'] / 20, label="x2_dot 3rd missile")
-    plt.plot(df3.index, df3['xhat2_dot'] / 20, label="xhat2_dot 3rd missile")
+    plt.plot(df3.index, df3['x2_dot'], label="x2_dot Третья цель")
+    plt.plot(df3.index, df3['xhat2_dot'], label="xhat2_dot Третья цель")
     plt.legend()
-    plt.ylabel('position')
-    plt.xlabel('time')
-    plt.title('Y velocity')
+    plt.ylabel('Скорость')
+    plt.xlabel('Время')
+    plt.title('Скорость по Y')
+    # plt.ylabel('position')
+    # plt.xlabel('time')
+    # plt.title('Y velocity')
     plt.show()
 
 
@@ -234,30 +246,42 @@ def data_frame_transform(df):
 def secondary_plot_results(df, title_suffix):
     # X position difference
     plt.plot(df['xhat1'] - df['x1'])
-    plt.ylabel('position')
-    plt.xlabel('time')
-    plt.title('X position difference ' + title_suffix)
+    plt.ylabel('Дальность')
+    plt.xlabel('Время')
+    plt.title('Разница значений дальности по X ' + title_suffix)
+    # plt.ylabel('position')
+    # plt.xlabel('time')
+    # plt.title('X position difference ' + title_suffix)
     plt.show()
 
     # Y position difference
     plt.plot(df['xhat2'] - df['x2'])
-    plt.ylabel('position')
-    plt.xlabel('time')
-    plt.title('Y position difference ' + title_suffix)
+    plt.ylabel('Дальность')
+    plt.xlabel('Время')
+    plt.title('Разница значений дальности по Y ' + title_suffix)
+    # plt.ylabel('position')
+    # plt.xlabel('time')
+    # plt.title('Y position difference ' + title_suffix)
     plt.show()
 
     # X velocity
     plt.plot(df.index, df['xhat1_dot'] - df['x1_dot'])
-    plt.ylabel('velocity')
-    plt.xlabel('time')
-    plt.title('X velocity difference ' + title_suffix)
+    plt.ylabel('Скорость')
+    plt.xlabel('Время')
+    plt.title('Разница значений скорости по X ' + title_suffix)
+    # plt.ylabel('velocity')
+    # plt.xlabel('time')
+    # plt.title('X velocity difference ' + title_suffix)
     plt.show()
 
     # Y velocity
     plt.plot(df.index, df['xhat2_dot'] - df['x2_dot'])
-    plt.ylabel('velocity')
-    plt.xlabel('time')
-    plt.title('Y velocity difference ' + title_suffix)
+    plt.ylabel('Скорость')
+    plt.xlabel('Время')
+    plt.title('Разница значений скорости по Y ' + title_suffix)
+    # plt.ylabel('velocity')
+    # plt.xlabel('time')
+    # plt.title('Y velocity difference ' + title_suffix)
     plt.show()
 
 ######################################################################################################################
@@ -289,8 +313,8 @@ if __name__ == "__main__":
     sig_py = 1
 
     # measurement noise
-    sig_mx = 100
-    sig_my = 100
+    sig_mx = 300
+    sig_my = 300
 
     Q = np.diag([sig_px, sig_px, sig_py, sig_py])
     R = np.diag([sig_mx, sig_my])
@@ -349,8 +373,8 @@ if __name__ == "__main__":
     sig_py = 1
 
     # measurement noise
-    sig_mx = 100
-    sig_my = 100
+    sig_mx = 300
+    sig_my = 300
 
     Q = np.diag([sig_px, sig_px, sig_py, sig_py])
     R = np.diag([sig_mx, sig_my])
@@ -407,8 +431,8 @@ if __name__ == "__main__":
     sig_py = 1
 
     # measurement noise
-    sig_mx = 100
-    sig_my = 100
+    sig_mx = 300
+    sig_my = 300
 
     Q = np.diag([sig_px, sig_px, sig_py, sig_py])
     R = np.diag([sig_mx, sig_my])
@@ -444,8 +468,11 @@ if __name__ == "__main__":
     plot_results(df1, df2, df3)
 
     df1 = data_frame_transform(df1)
-    secondary_plot_results(df1, "(1st missile)")
+    # secondary_plot_results(df1, "(1st missile)")
+    secondary_plot_results(df1, "(Первая цель)")
     df2 = data_frame_transform(df2)
-    secondary_plot_results(df2, "(2nd missile)")
+    # secondary_plot_results(df2, "(2nd missile)")
+    secondary_plot_results(df2, "(Вторая цель)")
     df3 = data_frame_transform(df3)
-    secondary_plot_results(df3, "(3rd missile)")
+    # secondary_plot_results(df3, "(3rd missile)")
+    secondary_plot_results(df3, "(Третья цель)")
