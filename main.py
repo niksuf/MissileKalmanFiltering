@@ -192,14 +192,14 @@ def plot_results(df1, df2, df3):
 
     # X velocity
     # 1st missile
-    plt.plot(df1.index, df1['x1_dot'], label="x1_dot Первая цель")
-    plt.plot(df1.index, df1['xhat1_dot'], label="xhat1_dot Первая цель")
+    plt.plot(df1.index, df1['x1_dot'] / 20, label="x1_dot Первая цель")
+    plt.plot(df1.index, df1['xhat1_dot'] / 20, label="xhat1_dot Первая цель")
     # 2nd missile
-    plt.plot(df2.index, df2['x1_dot'], label="x1_dot Вторая цель")
-    plt.plot(df2.index, df2['xhat1_dot'], label="xhat1_dot Вторая цель")
+    plt.plot(df2.index, df2['x1_dot'] / 20, label="x1_dot Вторая цель")
+    plt.plot(df2.index, df2['xhat1_dot'] / 20, label="xhat1_dot Вторая цель")
     # 3rd missile
-    plt.plot(df3.index, df3['x1_dot'], label="x1_dot Третья цель")
-    plt.plot(df3.index, df3['xhat1_dot'], label="xhat1_dot Третья цель")
+    plt.plot(df3.index, df3['x1_dot'] / 20, label="x1_dot Третья цель")
+    plt.plot(df3.index, df3['xhat1_dot'] / 20, label="xhat1_dot Третья цель")
     plt.legend()
     plt.ylabel('Скорость')
     plt.xlabel('Время')
@@ -211,14 +211,14 @@ def plot_results(df1, df2, df3):
 
     # Y velocity
     # 1st missile
-    plt.plot(df1.index, df1['x2_dot'], label="x2_dot Первая цель")
-    plt.plot(df1.index, df1['xhat2_dot'], label="xhat2_dot Первая цель")
+    plt.plot(df1.index, df1['x2_dot'] / 20, label="x2_dot Первая цель")
+    plt.plot(df1.index, df1['xhat2_dot'] / 20, label="xhat2_dot Первая цель")
     # 2nd missile
-    plt.plot(df2.index, df2['x2_dot'], label="x2_dot Вторая цель")
-    plt.plot(df2.index, df2['xhat2_dot'], label="xhat2_dot Вторая цель")
+    plt.plot(df2.index, df2['x2_dot'] / 20, label="x2_dot Вторая цель")
+    plt.plot(df2.index, df2['xhat2_dot'] / 20, label="xhat2_dot Вторая цель")
     # 3rd missile
-    plt.plot(df3.index, df3['x2_dot'], label="x2_dot Третья цель")
-    plt.plot(df3.index, df3['xhat2_dot'], label="xhat2_dot Третья цель")
+    plt.plot(df3.index, df3['x2_dot'] / 20, label="x2_dot Третья цель")
+    plt.plot(df3.index, df3['xhat2_dot'] / 20, label="xhat2_dot Третья цель")
     plt.legend()
     plt.ylabel('Скорость')
     plt.xlabel('Время')
@@ -227,7 +227,6 @@ def plot_results(df1, df2, df3):
     # plt.xlabel('time')
     # plt.title('Y velocity')
     plt.show()
-
 
 ######################################################################################################################
 
