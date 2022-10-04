@@ -1,12 +1,9 @@
-# Example of Kalman filter used for estimation of ballistic missile trajectory
-
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
 
 class KalmanFilter:
-
     def __init__(self, A, B, M, H, Q, R):
         self.A = A
         self.B = B
@@ -93,11 +90,11 @@ class KalmanFilter:
         end_pos_x = self.x[-1][0] / 20
         end_pos_y = self.x[-1][2] / 20
         end_pos = (end_pos_x ** 2 + end_pos_y ** 2) ** (1/2)
-        print("Дальность в конечной точке: ", end_pos)
+        print("Position in last point: ", end_pos)
         end_velocity_x = self.x[-1][1] / 20
         end_velocity_y = self.x[-1][3] / 20
         end_velocity = ((end_velocity_x - self.x[0][1]) ** 2 + (end_velocity_y - self.x[0][3]) ** 2) ** (1/2)
-        print("Скорость в конечной точке: ", end_velocity)
+        print("Velocity in last point: ", end_velocity)
 
         # store data in dataframe
         # convert data to dataframe
@@ -105,9 +102,6 @@ class KalmanFilter:
         self.df_z = pd.DataFrame(np.vstack(self.z), index=self.t, columns=labels[1])
         self.df_xhat_apri = pd.DataFrame(np.vstack(self.xhat_apri), index=self.t, columns=labels[2])
 
-        # self.df = self.df_x.append([self.df_z, self.df_xhat_apri], sort=False)
-        # FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version.
-        # Use pandas.concat instead.
         self.df = pd.concat([self.df_x, self.df_z, self.df_xhat_apri], sort=False)
 
         return self.df
@@ -121,7 +115,6 @@ def setup_missile_dynamics(delT):
     A[0, 0] = 1
     A[0, 1] = delT
     A[1, 1] = 1
-    # A[1, 2] = delT
     A[2, 2] = 1
     A[2, 3] = delT
     A[3, 3] = 1
@@ -148,84 +141,72 @@ def setup_missile_dynamics(delT):
 def plot_results(df1, df2, df3):
     # X position
     # 1st missile
-    plt.plot(df1.index, df1['x1'] / 20, label="x Первая цель")
-    plt.plot(df1.index, df1['z1'] / 20, label="z1 Первая цель")
-    plt.plot(df1.index, df1['xhat1'] / 20, label="x hat Первая цель")
+    plt.plot(df1.index, df1['x1'] / 20, label="x First missile")
+    plt.plot(df1.index, df1['z1'] / 20, label="z1 First missile")
+    plt.plot(df1.index, df1['xhat1'] / 20, label="x hat First missile")
     # 2nd missile
-    plt.plot(df2.index, df2['x1'] / 20, label="x Вторая цель")
-    plt.plot(df2.index, df2['z1'] / 20, label="z1 Вторая цель")
-    plt.plot(df2.index, df2['xhat1'] / 20, label="x hat Вторая цель")
+    plt.plot(df2.index, df2['x1'] / 20, label="x Second missile")
+    plt.plot(df2.index, df2['z1'] / 20, label="z1 Second missile")
+    plt.plot(df2.index, df2['xhat1'] / 20, label="x hat Second missile")
     # 3rd missile
-    plt.plot(df3.index, df3['x1'] / 20, label="x Третья цель")
-    plt.plot(df3.index, df3['z1'] / 20, label="z1 Третья цель")
-    plt.plot(df3.index, df3['xhat1'] / 20, label="x hat Третья цель")
+    plt.plot(df3.index, df3['x1'] / 20, label="x Third missile")
+    plt.plot(df3.index, df3['z1'] / 20, label="z1 Third missile")
+    plt.plot(df3.index, df3['xhat1'] / 20, label="x hat Third missile")
     plt.legend()
-    plt.ylabel('Дальность')
-    plt.xlabel('Время')
-    plt.title('Дальность по X')
-    # plt.ylabel('position')
-    # plt.xlabel('time')
-    # plt.title('X position')
+    plt.ylabel('position')
+    plt.xlabel('time')
+    plt.title('X position')
     plt.show()
 
     # Y Position
     # 1st missile
-    plt.plot(df1.index, df1['x2'] / 20, label="y Первая цель")
-    plt.plot(df1.index, df1['z2'] / 20, label="z2 Первая цель")
-    plt.plot(df1.index, df1['xhat2'] / 20, label="y hat Первая цель")
+    plt.plot(df1.index, df1['x2'] / 20, label="y First missile")
+    plt.plot(df1.index, df1['z2'] / 20, label="z2 First missile")
+    plt.plot(df1.index, df1['xhat2'] / 20, label="y hat First missile")
     # 2nd missile
-    plt.plot(df2.index, df2['x2'] / 20, label="y Вторая цель")
-    plt.plot(df2.index, df2['z2'] / 20, label="z2 Вторая цель")
-    plt.plot(df2.index, df2['xhat2'] / 20, label="y hat Вторая цель")
+    plt.plot(df2.index, df2['x2'] / 20, label="y Second missile")
+    plt.plot(df2.index, df2['z2'] / 20, label="z2 Second missile")
+    plt.plot(df2.index, df2['xhat2'] / 20, label="y hat Second missile")
     # 3rd missile
-    plt.plot(df3.index, df3['x2'] / 20, label="y Третья цель")
-    plt.plot(df3.index, df3['z2'] / 20, label="z2 Третья цель")
-    plt.plot(df3.index, df3['xhat2'] / 20, label="y hat Третья цель")
+    plt.plot(df3.index, df3['x2'] / 20, label="y Third missile")
+    plt.plot(df3.index, df3['z2'] / 20, label="z2 Third missile")
+    plt.plot(df3.index, df3['xhat2'] / 20, label="y hat Third missile")
     plt.legend()
-    plt.ylabel('Дальность')
-    plt.xlabel('Время')
-    plt.title('Дальность по Y')
-    # plt.ylabel('position')
-    # plt.xlabel('time')
-    # plt.title('Y position')
+    plt.ylabel('position')
+    plt.xlabel('time')
+    plt.title('Y position')
     plt.show()
 
     # X velocity
     # 1st missile
-    plt.plot(df1.index, df1['x1_dot'] / 20, label="x1_dot Первая цель")
-    plt.plot(df1.index, df1['xhat1_dot'] / 20, label="xhat1_dot Первая цель")
+    plt.plot(df1.index, df1['x1_dot'] / 20, label="x1_dot First missile")
+    plt.plot(df1.index, df1['xhat1_dot'] / 20, label="xhat1_dot First missile")
     # 2nd missile
-    plt.plot(df2.index, df2['x1_dot'] / 20, label="x1_dot Вторая цель")
-    plt.plot(df2.index, df2['xhat1_dot'] / 20, label="xhat1_dot Вторая цель")
+    plt.plot(df2.index, df2['x1_dot'] / 20, label="x1_dot Second missile")
+    plt.plot(df2.index, df2['xhat1_dot'] / 20, label="xhat1_dot Second missile")
     # 3rd missile
-    plt.plot(df3.index, df3['x1_dot'] / 20, label="x1_dot Третья цель")
-    plt.plot(df3.index, df3['xhat1_dot'] / 20, label="xhat1_dot Третья цель")
+    plt.plot(df3.index, df3['x1_dot'] / 20, label="x1_dot Third missile")
+    plt.plot(df3.index, df3['xhat1_dot'] / 20, label="xhat1_dot Third missile")
     plt.legend()
-    plt.ylabel('Скорость')
-    plt.xlabel('Время')
-    plt.title('Скорость по X')
-    # plt.ylabel('speed')
-    # plt.xlabel('time')
-    # plt.title('X velocity')
+    plt.ylabel('speed')
+    plt.xlabel('time')
+    plt.title('X velocity')
     plt.show()
 
     # Y velocity
     # 1st missile
-    plt.plot(df1.index, df1['x2_dot'] / 20, label="x2_dot Первая цель")
-    plt.plot(df1.index, df1['xhat2_dot'] / 20, label="xhat2_dot Первая цель")
+    plt.plot(df1.index, df1['x2_dot'] / 20, label="x2_dot First missile")
+    plt.plot(df1.index, df1['xhat2_dot'] / 20, label="xhat2_dot First missile")
     # 2nd missile
-    plt.plot(df2.index, df2['x2_dot'] / 20, label="x2_dot Вторая цель")
-    plt.plot(df2.index, df2['xhat2_dot'] / 20, label="xhat2_dot Вторая цель")
+    plt.plot(df2.index, df2['x2_dot'] / 20, label="x2_dot Second missile")
+    plt.plot(df2.index, df2['xhat2_dot'] / 20, label="xhat2_dot Second missile")
     # 3rd missile
-    plt.plot(df3.index, df3['x2_dot'] / 20, label="x2_dot Третья цель")
-    plt.plot(df3.index, df3['xhat2_dot'] / 20, label="xhat2_dot Третья цель")
+    plt.plot(df3.index, df3['x2_dot'] / 20, label="x2_dot Third missile")
+    plt.plot(df3.index, df3['xhat2_dot'] / 20, label="xhat2_dot Third missile")
     plt.legend()
-    plt.ylabel('Скорость')
-    plt.xlabel('Время')
-    plt.title('Скорость по Y')
-    # plt.ylabel('position')
-    # plt.xlabel('time')
-    # plt.title('Y velocity')
+    plt.ylabel('position')
+    plt.xlabel('time')
+    plt.title('Y velocity')
     plt.show()
 
 ######################################################################################################################
@@ -245,42 +226,30 @@ def data_frame_transform(df):
 def secondary_plot_results(df, title_suffix):
     # X position difference
     plt.plot(df['xhat1'] - df['x1'])
-    plt.ylabel('Дальность')
-    plt.xlabel('Время')
-    plt.title('Разница значений дальности по X ' + title_suffix)
-    # plt.ylabel('position')
-    # plt.xlabel('time')
-    # plt.title('X position difference ' + title_suffix)
+    plt.ylabel('position')
+    plt.xlabel('time')
+    plt.title('X position difference ' + title_suffix)
     plt.show()
 
     # Y position difference
     plt.plot(df['xhat2'] - df['x2'])
-    plt.ylabel('Дальность')
-    plt.xlabel('Время')
-    plt.title('Разница значений дальности по Y ' + title_suffix)
-    # plt.ylabel('position')
-    # plt.xlabel('time')
-    # plt.title('Y position difference ' + title_suffix)
+    plt.ylabel('position')
+    plt.xlabel('time')
+    plt.title('Y position difference ' + title_suffix)
     plt.show()
 
     # X velocity
     plt.plot(df.index, df['xhat1_dot'] - df['x1_dot'])
-    plt.ylabel('Скорость')
-    plt.xlabel('Время')
-    plt.title('Разница значений скорости по X ' + title_suffix)
-    # plt.ylabel('velocity')
-    # plt.xlabel('time')
-    # plt.title('X velocity difference ' + title_suffix)
+    plt.ylabel('velocity')
+    plt.xlabel('time')
+    plt.title('X velocity difference ' + title_suffix)
     plt.show()
 
     # Y velocity
     plt.plot(df.index, df['xhat2_dot'] - df['x2_dot'])
-    plt.ylabel('Скорость')
-    plt.xlabel('Время')
-    plt.title('Разница значений скорости по Y ' + title_suffix)
-    # plt.ylabel('velocity')
-    # plt.xlabel('time')
-    # plt.title('Y velocity difference ' + title_suffix)
+    plt.ylabel('velocity')
+    plt.xlabel('time')
+    plt.title('Y velocity difference ' + title_suffix)
     plt.show()
 
 ######################################################################################################################
@@ -467,11 +436,8 @@ if __name__ == "__main__":
     plot_results(df1, df2, df3)
 
     df1 = data_frame_transform(df1)
-    # secondary_plot_results(df1, "(1st missile)")
-    secondary_plot_results(df1, "(Первая цель)")
+    secondary_plot_results(df1, "(1st missile)")
     df2 = data_frame_transform(df2)
-    # secondary_plot_results(df2, "(2nd missile)")
-    secondary_plot_results(df2, "(Вторая цель)")
+    secondary_plot_results(df2, "(2nd missile)")
     df3 = data_frame_transform(df3)
-    # secondary_plot_results(df3, "(3rd missile)")
-    secondary_plot_results(df3, "(Третья цель)")
+    secondary_plot_results(df3, "(3rd missile)")
