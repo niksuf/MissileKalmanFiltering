@@ -122,6 +122,8 @@ def main():
     # run the simulation
     df2 = kalman.simulate(t_min, delT, t_max, x0, u, w, v, labels)
 
+    print("Simulation 2 Complete")
+
     ##################################################################################################################
 
     # 3rd missile
