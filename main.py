@@ -8,8 +8,9 @@ def main():
     print("Simulation 1 Started")
 
     # Simulation Parameters
+    t_min = 0
     delT = 0.008  # timestep
-    t_max = 2  # time simulation stops (seconds)
+    t_max = 2.4  # time simulation stops (seconds)
     t = np.arange(0, t_max, delT)
     g = 242  # m/s^2
     mass = 22  # kg
@@ -58,7 +59,7 @@ def main():
     labels = [state_labels, measurement_labels, apriori_state_labels]
 
     # run the simulation
-    df1 = kalman.simulate(delT, t_max, x0, u, w, v, labels)
+    df1 = kalman.simulate(t_min, delT, t_max, x0, u, w, v, labels)
 
     print("Simulation 1 Complete")
 
@@ -68,8 +69,9 @@ def main():
     print("Simulation 2 Started")
 
     # Simulation Parameters
+    t_min = 0.1
     delT = 0.008  # timestep
-    t_max = 2  # time simulation stops (seconds)
+    t_max = 1.9  # time simulation stops (seconds)
     t = np.arange(0, t_max, delT)
     g = 450  # m/s^2
     mass = 22  # kg
@@ -118,7 +120,7 @@ def main():
     labels = [state_labels, measurement_labels, apriori_state_labels]
 
     # run the simulation
-    df2 = kalman.simulate(delT, t_max, x0, u, w, v, labels)
+    df2 = kalman.simulate(t_min, delT, t_max, x0, u, w, v, labels)
 
     ##################################################################################################################
 
@@ -126,8 +128,9 @@ def main():
     print("Simulation 3 Started")
 
     # Simulation Parameters
+    t_min = 0.2
     delT = 0.008  # timestep
-    t_max = 2  # time simulation stops (seconds)
+    t_max = 2.3  # time simulation stops (seconds)
     t = np.arange(0, t_max, delT)
     g = 331  # m/s^2
     mass = 22  # kg
@@ -176,7 +179,7 @@ def main():
     labels = [state_labels, measurement_labels, apriori_state_labels]
 
     # run the simulation
-    df3 = kalman.simulate(delT, t_max, x0, u, w, v, labels)
+    df3 = kalman.simulate(t_min, delT, t_max, x0, u, w, v, labels)
 
     print("Simulation 3 Complete")
 

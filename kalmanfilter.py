@@ -34,10 +34,10 @@ class KalmanFilter:
         # observation error
         self.ztilde = []
 
-    def simulate(self, delT, t_max, x0, u, w, v, labels):
+    def simulate(self, t_min, delT, t_max, x0, u, w, v, labels):
         self.delT = delT
         self.t_max = t_max
-        self.t = np.arange(0, t_max, delT)  # time vector
+        self.t = np.arange(t_min, t_max, delT)  # time vector
 
         self.x0 = x0
         self.x.append(self.x0)
