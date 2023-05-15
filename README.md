@@ -29,7 +29,11 @@
 ```
 git clone https://github.com/niksuf/MissileKalmanFiltering
 ```
-2. Запустить приложение командой:
+2. Перейти в папку проекта:
+```
+cd MissileKalmanFiltering
+```
+3. Запустить приложение командой:
 ```
 python main.py
 ```
