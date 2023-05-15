@@ -24,7 +24,7 @@
 
 Графики для дальности и скорости представлены в одном окне:
 
-![plot_results_screen](https://github.com/niksuf/MissileKalmanFiltering/blob/master/img/Screenshot_1.png)
+![plot_results_screen](https://github.com/niksuf/MissileKalmanFiltering/blob/main/img/Screenshot_1.png)
 
 Значения дальностей и скоростей приведены в трех экземплярах (для каждой ракеты отдельно).
 
