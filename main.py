@@ -1,7 +1,7 @@
 import numpy as np
 
 from kalmanfilter import KalmanFilter, setup_missile_dynamics
-from graphs import plot_results, data_frame_transform, secondary_plot_results
+from graphics import plot_results, data_frame_transform, secondary_plot_results
 
 
 def main():
