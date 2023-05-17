@@ -90,30 +90,30 @@ def data_frame_transform(df):
 
 
 def secondary_plot_results(df, title_suffix):
+    fig, axs = plt.subplots(nrows=2, ncols=2)
+
     # X position difference
-    plt.plot(df['xhat1'] - df['x1'])
-    plt.ylabel('position')
-    plt.xlabel('time')
-    plt.title('X position difference ' + title_suffix)
-    plt.show()
+    axs[0][0].plot(df['xhat1'] - df['x1'])
+    axs[0][0].set_title('X position difference ' + title_suffix)
 
     # Y position difference
-    plt.plot(df['xhat2'] - df['x2'])
-    plt.ylabel('position')
-    plt.xlabel('time')
-    plt.title('Y position difference ' + title_suffix)
-    plt.show()
+    axs[0][1].plot(df['xhat2'] - df['x2'])
+    axs[0][1].set_title('Y position difference ' + title_suffix)
+
+    for i in range(2):
+        axs[0][i].set_ylabel('position')
+        axs[0][i].set_xlabel('time')
 
     # X velocity
-    plt.plot(df.index, df['xhat1_dot'] - df['x1_dot'])
-    plt.ylabel('velocity')
-    plt.xlabel('time')
-    plt.title('X velocity difference ' + title_suffix)
-    plt.show()
+    axs[1][0].plot(df.index, df['xhat1_dot'] - df['x1_dot'])
+    axs[1][0].set_title('X velocity difference ' + title_suffix)
 
     # Y velocity
-    plt.plot(df.index, df['xhat2_dot'] - df['x2_dot'])
-    plt.ylabel('velocity')
-    plt.xlabel('time')
-    plt.title('Y velocity difference ' + title_suffix)
+    axs[1][1].plot(df.index, df['xhat2_dot'] - df['x2_dot'])
+    axs[1][1].set_title('Y velocity difference ' + title_suffix)
+
+    for i in range(2):
+        axs[1][i].set_ylabel('velocity')
+        axs[1][i].set_xlabel('time')
+
     plt.show()
