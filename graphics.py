@@ -41,6 +41,7 @@ def plot_results(df1, df2, df3):
             axs[i][j].legend()
             axs[i][j].set_ylabel('position')
             axs[i][j].set_xlabel('time')
+            axs[i][j].grid(True)
 
     # X velocity
     # 1st missile
@@ -72,6 +73,7 @@ def plot_results(df1, df2, df3):
             axs[i][j].legend()
             axs[i][j].set_ylabel('speed')
             axs[i][j].set_xlabel('time')
+            axs[i][j].grid(True)
 
     plt.show()
 
@@ -103,6 +105,7 @@ def secondary_plot_results(df, title_suffix):
     for i in range(2):
         axs[0][i].set_ylabel('position')
         axs[0][i].set_xlabel('time')
+        axs[0][i].grid(True)
 
     # X velocity
     axs[1][0].plot(df.index, df['xhat1_dot'] - df['x1_dot'])
@@ -115,5 +118,6 @@ def secondary_plot_results(df, title_suffix):
     for i in range(2):
         axs[1][i].set_ylabel('velocity')
         axs[1][i].set_xlabel('time')
+        axs[1][i].grid(True)
 
     plt.show()
