@@ -142,58 +142,64 @@ def main():
     print("Simulation 3 Started")
 
     # Simulation Parameters
-    t_min = 0.2
-    delT = 0.008  # timestep
-    t_max = 2.3  # time simulation stops (seconds)
-    t = np.arange(0, t_max, delT)
-    g = 331  # m/s^2
-    mass = 22  # kg
+    third_missile_t_min = 0.2
+    third_missile_delT = 0.008  # timestep
+    third_missile_t_max = 2.3  # time simulation stops (seconds)
+    third_missile_t = np.arange(0, third_missile_t_max, third_missile_delT)
+    third_missile_g = 331  # m/s^2
+    third_missile_mass = 22  # kg
 
     # initial conditions
-    x0 = np.zeros(4)
-    init_angle = 45
-    init_angle_radians = np.radians(init_angle)
-    init_velocity = 42
+    third_missile_x0 = np.zeros(4)
+    third_missile_init_angle = 45
+    third_missile_init_angle_radians = np.radians(third_missile_init_angle)
+    third_missile_init_velocity = 42
 
-    x0[0] = 0
-    x0[1] = init_velocity * np.cos(init_angle_radians)
-    x0[2] = 0  # initial height
-    x0[3] = init_velocity * np.sin(init_angle_radians)
+    third_missile_x0[0] = 0
+    third_missile_x0[1] = third_missile_init_velocity * np.cos(third_missile_init_angle_radians)
+    third_missile_x0[2] = 0  # initial height
+    third_missile_x0[3] = third_missile_init_velocity * np.sin(third_missile_init_angle_radians)
 
     # process noise: disturbance forces, normal distributions
-    sig_px = 10
-    sig_py = 1
+    third_missile_sig_px = 10
+    third_missile_sig_py = 1
 
     # measurement noise
-    sig_mx = 300
-    sig_my = 300
+    third_missile_sig_mx = 300
+    third_missile_sig_my = 300
 
-    Q = np.diag([sig_px, sig_px, sig_py, sig_py])
-    R = np.diag([sig_mx, sig_my])
+    third_missile_Q = np.diag([third_missile_sig_px, third_missile_sig_px, third_missile_sig_py, third_missile_sig_py])
+    third_missile_R = np.diag([third_missile_sig_mx, third_missile_sig_my])
 
-    A, B, H = setup_missile_dynamics(delT)
+    third_missile_A, third_missile_B, third_missile_H = setup_missile_dynamics(third_missile_delT)
 
     # process and measurement noise
-    w_x = np.random.normal(0, sig_px, (len(t), 1))
-    w_y = np.random.normal(0, sig_py, (len(t), 1))
-    w = np.hstack((w_x, w_y))
+    third_missile_w_x = np.random.normal(0, third_missile_sig_px, (len(third_missile_t), 1))
+    third_missile_w_y = np.random.normal(0, third_missile_sig_py, (len(third_missile_t), 1))
+    third_missile_w = np.hstack((third_missile_w_x, third_missile_w_y))
 
-    v = np.hstack((np.random.normal(0, sig_mx, (len(t), 1)), np.random.normal(0, sig_my, (len(t), 1))))
+    third_missile_v = np.hstack((np.random.normal(0, third_missile_sig_mx, (len(third_missile_t), 1)),
+                                 np.random.normal(0, third_missile_sig_my, (len(third_missile_t), 1))))
 
     # input (only input is acceleration due to gravity)
-    u = np.hstack((np.zeros((len(t), 1)), np.ones((len(t), 1)) * g * mass))
+    third_missile_u = np.hstack((np.zeros((len(third_missile_t), 1)),
+                                 np.ones((len(third_missile_t), 1)) * third_missile_g * third_missile_mass))
 
     # setup Kalman Filter
-    kalman = KalmanFilter(A, B, B, H, Q, R)
+    third_missile_kalman = KalmanFilter(third_missile_A, third_missile_B, third_missile_B,
+                                        third_missile_H, third_missile_Q, third_missile_R)
 
     # dataframe column labels
-    state_labels = ['x1', 'x1_dot', 'x2', 'x2_dot']
-    measurement_labels = ['z1', 'z2']
-    apriori_state_labels = ['xhat1', 'xhat1_dot', 'xhat2', 'xhat2_dot']
-    labels = [state_labels, measurement_labels, apriori_state_labels]
+    third_missile_state_labels = ['x1', 'x1_dot', 'x2', 'x2_dot']
+    third_missile_measurement_labels = ['z1', 'z2']
+    third_missile_apriori_state_labels = ['xhat1', 'xhat1_dot', 'xhat2', 'xhat2_dot']
+    third_missile_labels = [third_missile_state_labels, third_missile_measurement_labels,
+                            third_missile_apriori_state_labels]
 
     # run the simulation
-    df3 = kalman.simulate(t_min, delT, t_max, x0, u, w, v, labels)
+    df3 = third_missile_kalman.simulate(third_missile_t_min, third_missile_delT, third_missile_t_max,
+                                        third_missile_x0, third_missile_u, third_missile_w,
+                                        third_missile_v, third_missile_labels)
 
     print("Simulation 3 Complete")
 
