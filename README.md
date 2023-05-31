@@ -42,7 +42,11 @@ git clone https://github.com/niksuf/MissileKalmanFiltering
 ```
 cd MissileKalmanFiltering
 ```
-3. Запустить приложение командой:
+3. Установить зависимости при помощи команды:
+```
+pip install -r requirements.txt
+```
+4. Запустить приложение командой:
 ```
 python main.py
 ```
